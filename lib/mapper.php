@@ -7,6 +7,14 @@ class RequestMapper {
         self::$controllers[] = array('pattern' => $regex, 'index' => $index, 'cls' => $class);
     }
 
+    static function getRequests(){
+        $res = array();
+        foreach(self::$controllers as $ctr){
+            $res[] = $ctr['index'];
+        }
+        return $res;
+    }
+
     static function excuteAction($url){
         try{
             $found = false;
