@@ -12,7 +12,11 @@ abstract class HttpException extends Exception {
     function render(){
         header(sprintf('HTTP 1.0 %d %s', $this->status_code, $this->status_message));
         header('Content-Type: application/json');
-        $data = json_encode($this->getBody());
+        $data = json_encode(array(
+            'error_code' => $this->status_code,
+            'message' => $this->status_message,
+            'error_data' => $this->getBody()
+        ));
         header('Content-Length: '.strlen($data));
         echo $data;
         exit;
