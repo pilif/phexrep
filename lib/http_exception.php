@@ -33,3 +33,25 @@ class Forbidden extends HttpException{
         return $this->body;
     }
 }
+
+class NotFound extends HttpException{
+
+    function __construct(){
+        parent::__construct(404, 'Not Found');
+    }
+
+    function getBody(){
+        return array();
+    }
+}
+
+class InternalServerError extends HttpException{
+
+    function __construct(){
+        parent::__construct(500, 'Internal Server Error');
+    }
+
+    function getBody(){
+        return array();
+    }
+}
