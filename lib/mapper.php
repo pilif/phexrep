@@ -21,7 +21,7 @@ class RequestMapper {
             foreach(self::$controllers as $ctr){
                 if (preg_match($ctr['pattern'], $url)){
                     $c = new $ctr['cls']();
-                    $c->render();
+                    $c->render($url);
                     $found = true;
                     break;
                 }

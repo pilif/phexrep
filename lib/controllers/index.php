@@ -3,7 +3,7 @@ RequestMapper::registerRequest('#^/(index)?$#', '/', 'IndexController');
 
 
 class IndexController extends BaseController{
-    function handle(){
+    function handle($url){
         return RequestMapper::getRequests();
     }
 }

@@ -4,7 +4,7 @@ RequestMapper::registerRequest('#^/exceptions#', '/exceptions', 'ExceptionContro
 
 class ExceptionController extends BaseController{
 
-    function handle(){
+    function handle($url){
         return array('gnegg' => 'blepp');
     }
 
