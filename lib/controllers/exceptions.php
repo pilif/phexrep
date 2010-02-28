@@ -1,5 +1,5 @@
 <?php
-RequestMapper::registerRequest('#^/exceptions', 'ExceptionController');
+RequestMapper::registerRequest('#^/exceptions#', '/exceptions', 'ExceptionController');
 
 
 class ExceptionController extends BaseController{
