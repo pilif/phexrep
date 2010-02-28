@@ -18,3 +18,8 @@ class Configuration {
     }
 
 }
+
+function c(){
+    if (!$GLOBALS['cfg']) $GLOBALS['cfg'] = new Configuration();
+    return $GLOBALS['cfg'];
+}

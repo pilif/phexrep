@@ -19,6 +19,8 @@ if (file_exists(LIB_DIR.'/_autoload.php')){
     die("File does not exist: ".CACHE_ROOT.'/_autoload.php');
 }
 
+$GLOBALS['cfg'] = new Configuration();
+
 foreach(glob(LIB_DIR.'/controllers/*.php') as $c){
     include($c);
 }
