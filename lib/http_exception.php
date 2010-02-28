@@ -49,6 +49,19 @@ class NotFound extends HttpException{
     }
 }
 
+class BadRequest extends HttpException{
+    private $reason;
+
+    function __construct($reason){
+        parent::__construct(400, 'Bad Request');
+        $this->reason = $reason;
+    }
+
+    function getBody(){
+        return array('reason' => $this->reason);
+    }
+}
+
 class InternalServerError extends HttpException{
 
     function __construct(){
