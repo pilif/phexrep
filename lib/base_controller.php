@@ -2,7 +2,7 @@
 
 abstract class BaseController {
     public function render($url){
-        $this->authenticate();
+#        $this->authenticate();
         header('Content-Type: application/json');
         $data = json_encode($this->handle($url));
         header('Content-Length: '.strlen($data));
