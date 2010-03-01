@@ -45,10 +45,51 @@
   <tbody>
   <% $.each(report.error_info.callstack, function(){ %>
     <tr>
-        <td><%= $('<div>').text(this.file).html() %></td>
+        <td>
+            <% if (this.scm_link) { %><a target="_blank" class="external" href="<%= this.scm_link %>"></a> <% } %>
+            <% if (this.base_file) { %>
+                <a href="#" class="preview" data-preview-path="/preview/<%= this.base_file %>?line=<%= encodeURI(this.line) %>"><%= $('<div>').text(this.file).html() %></a>
+            <% }else{ %>
+                <%= $('<div>').text(this.file).html() %>
+            <% } %>
+        </td>
         <td><%= this.line %></td>
         <td><%= this.call %></td>
     </tr>
   <% }); %>
   </tbody>
 </table>
+<script type="text/javascript">
+    $(function(){
+        $('#callstack > tbody > tr > td > a.preview').click(function(evt){
+            var pp = $(this).attr('data-preview-path');
+            if (pp){
+                $.get('/api.php/'+pp, function(res){
+                    $('#code-preview')
+                        .find("pre")
+                            .text(res)
+                            .end()
+                        .css('left', evt.pageX+'px')
+                        .css('top', evt.pageY+'px')
+                        .show();
+
+                    prettyPrint();
+                    console.log(evt);
+
+
+                }, 'text')
+            }
+            return false;
+        });
+        $('#code-preview > a.close').click(function(){
+            $('#code-preview').hide();
+            return false;
+        })
+
+    });
+</script>
+
+<div id="code-preview">
+<a href="#" class="close">x</a>
+<pre class="prettyprint"></pre>
+</div>

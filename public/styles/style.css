@@ -299,3 +299,32 @@ ul.tabs li.selected a
     font-size: 0.75em;
     vertical-align: top;
 }
+
+a.external{
+    background: url(../img/external.png) no-repeat left center;
+    padding-left: 12px;
+}
+
+#code-preview{
+    border: 1px solid #888;
+    display: none;
+    position: absolute;
+    background: white;
+    left: 10px;
+    top: 50px;
+    max-width: 50%;
+    padding: 0 25px;
+}
+
+#code-preview a.close{
+    display: block;
+    text-align: right;
+    padding: 5px 0 5px;
+    margin-right: -15px;
+}
+
+#code-preview pre{
+    overflow: auto;
+    width: 100%;
+
+}
