@@ -46,11 +46,11 @@ class ExceptionReport implements ArrayAccess {
     }
 
     function offsetSet ($offset, $value){
-         throw NotImplementedException("ExceptionReport is read-only");
+         throw new NotImplementedException("ExceptionReport is read-only");
     }
 
     function offsetUnset ($offset){
-         throw NotImplementedException("ExceptionReport is read-only");
+         throw new NotImplementedException("ExceptionReport is read-only");
     }
 
 }
