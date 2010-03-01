@@ -38,6 +38,18 @@ class Forbidden extends HttpException{
     }
 }
 
+class Unauthorized extends HttpException{
+
+    function __construct(){
+        parent::__construct(401, 'Unauthorized');
+    }
+
+    function getBody(){
+        return array();
+    }
+}
+
+
 class NotFound extends HttpException{
 
     function __construct(){
