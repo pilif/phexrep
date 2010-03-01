@@ -5,11 +5,11 @@ RequestMapper::registerRequest('#^/exceptions#', '/exceptions', 'ExceptionContro
 class ExceptionController extends BaseController{
 
     function handle($url){
-        list($name, $exid, $data) = explode('/', $url);
+        list($null, $name, $exid, $data) = explode('/', $url);
         if ($data){
             throw new BadRequest('Syntax: /exceptions[/id]');
         }
-        if ($extid){
+        if ($exid){
             return $this->getException($exid);
         }else{
             return $this->getExceptionList();
@@ -17,6 +17,8 @@ class ExceptionController extends BaseController{
     }
 
     private function getException($exid){
+        $ex = new ExceptionReport($exid);
+        return (array)$ex;
 
     }
 
