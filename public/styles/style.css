@@ -295,6 +295,7 @@ ul.tabs li.selected a
   margin-top: 15px;
 }
 
-#repinfo tbody td{
+#repinfo tbody td, #callstack tbody td{
     font-size: 0.75em;
+    vertical-align: top;
 }

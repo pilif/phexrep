@@ -30,5 +30,25 @@
     <% } %>
 <%  }); %>
 </tbody>
+</table>
 
 
+<h2>Callstack</h2>
+<table id="callstack">
+  <thead>
+    <tr>
+        <th>File</th>
+        <th>Line</th>
+        <th>Call</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% $.each(report.error_info.callstack, function(){ %>
+    <tr>
+        <td><%= $('<div>').text(this.file).html() %></td>
+        <td><%= this.line %></td>
+        <td><%= this.call %></td>
+    </tr>
+  <% }); %>
+  </tbody>
+</table>
