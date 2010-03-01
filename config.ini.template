@@ -8,3 +8,6 @@ password=$2a$07$/eI4PkBQVhwcigIpSXci$.qzW8zpdl9QNLOuJrlFUBq66rCfQYfVO
 
 [report_format]
 app_root=%
+web_repo=https://redmine.example.com/repository/revisions/%r/entry/%pi#L%l
+revision_field=revision
+default_revision=master

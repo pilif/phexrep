@@ -25,8 +25,11 @@ class ExceptionReport implements ArrayAccess {
         $pr = preg_quote(c()->getValue('report_format', 'app_root'), '#');
 
         foreach($this->data['error_info']['callstack'] as &$csi){
-            if ($pr)
+            if ($pr){
+                $csi['base_file'] = preg_replace("#^$pr/?#", '', $csi['file']);
                 $csi['file'] = preg_replace("#^$pr/?#", '<R>/', $csi['file']);
+                $csi['scm_link'] = $this->getWebSCMLink($csi['base_file'], $csi['line']);
+            }
             if ($csi['class']){
                 $csi['call'] = sprintf('%s%s%s(%s)',
                     $csi['class'],
@@ -76,6 +79,20 @@ class ExceptionReport implements ArrayAccess {
         if (!is_string($p) || strlen($p) < 20)
             return $p;
         return substr($p, 0, 8).'...'.substr($p, strlen($p)-8);
+    }
+
+    private function getWebSCMLink($file, $line){
+        $pr = c()->getValue('report_format', 'web_repo');
+        $rv = c()->getValue('report_format', 'revision_field');
+        $dr = c()->getValue('report_format', 'default_revision');
+
+
+        if (empty($pr) || empty($rv)) return '';
+        $pr = str_replace('%r', $this->data[$rv] ? rawurlencode($this->data[$rv]) : rawurlencode($dr), $pr);
+        $pr = str_replace('%pi', $file, $pr);
+        $pr = str_replace('%pu', rawurlencode($file), $pr);
+        $pr = str_replace('%l', rawurlencode($line), $pr);
+        return $pr;
     }
 
 }
