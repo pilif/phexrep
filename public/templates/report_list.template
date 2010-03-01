@@ -1,0 +1,27 @@
+<div id="exceptions">
+<h1>Exceptions</h1>
+<table cellspacing="0">
+
+  <thead style="display:none;">
+    <tr>
+      <th>Exception</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% $.each(reports, function(i){ %>
+  <tr id="exception-<%= this.id %>" class="<%= i%2 == 0 ? 'eor' : '' %> exception">
+    <td>
+      <div class="expclass">
+      <%= this.type %>
+      </div>
+      <span class="message"><%= this.message %></span>
+    </td>
+    <td nowrap="nowrap" class="time">
+    <%= this.ts %>
+    </td>
+  </tr>
+  <% }); %>
+  </tbody>
+</table>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>phexrep</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="jslib/sammy-0.5.0.min.js"></script>
+    <script type="text/javascript" src="jslib/plugins/sammy.template-0.5.0.min.js"  charset="utf-8"></script>
+    <script type="text/javascript" src="jslib/phexrep.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
+</head>
+<body>
+<div id="container">
+
+
+<div id="right">
+
+<h3>Filters</h3>
+
+<ul id="all_exceptions" class="filters">
+  <li>gnegg</li>
+</ul>
+
+<h4>Exception</h4>
+
+<ul id="exception_names" class="filters">
+  <li>name</li>
+</ul>
+
+<h4>Controller / Action</h4>
+
+<ul id="controller_actions" class="filters">
+  <li>uri filter</li>
+</ul>
+
+<h4>Dates</h4>
+
+<ul id="date_ranges" class="filters">
+	<li><a title="1">Today</a></li>
+	<li><a title="3">Last few days</a></li>
+	<li><a title="7">Last 7 days</a></li>
+	<li><a title="30">Last 30 days</a></li>
+</ul>
+
+
+<div id="search">
+  <form>
+    <div>
+        <input>
+    </div>
+  </form>
+</div>
+
+</div> <!-- right -->
+
+<div id="left">
+	<div class="page" id="main">
+
+	</div>
+</div>
+
+  <div id="activity" style="display:none">Busy...</div>
+
+</div> <!-- container -->
