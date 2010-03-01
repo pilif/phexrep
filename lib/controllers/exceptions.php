@@ -22,14 +22,11 @@ class ExceptionController extends BaseController{
 
     private function getExceptionList(){
         $limit = isset($_GET['pagesize']) ? $_GET['pagesize'] : 10;
-
-        $db = Database::getDatabase();
-        $q = sprintf(
-            "select '/exceptions/'||id as href, id, uri, type, ts from exception_logging order by ts desc limit %d",
-            $limit
-        );
-
-        return $db->queryArray($q);
+        $reps = ExceptionReport::getReports($limit);
+        foreach($reps as &$rep){
+            $rep['href'] = '/exceptions/'.$rep['id'];
+        }
+        return $reps;
     }
 
 }
