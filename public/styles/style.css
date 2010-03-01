@@ -110,7 +110,6 @@ onclick a:hover
 td
 {
 	padding:5px 10px;
-	xborder:1px solid #ddd;
 }
 
 #backtrace
@@ -154,6 +153,7 @@ h1
 h1 span
 {
 	color:#aaa;
+    display: block;
 	font-weight:normal;
 }
 
@@ -293,4 +293,8 @@ ul.tabs li.selected a
 
 #feed {
   margin-top: 15px;
+}
+
+#repinfo tbody td{
+    font-size: 0.75em;
 }
