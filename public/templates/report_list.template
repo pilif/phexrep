@@ -2,7 +2,7 @@
 <h1>Exceptions</h1>
 <table cellspacing="0">
 
-  <thead style="display:none;">
+  <thead>
     <tr>
       <th>Exception</th>
       <th>Date</th>
@@ -14,7 +14,7 @@
   <tr id="exception-<%= this.id %>" class="<%= i%2 == 0 ? 'eor' : '' %> exception">
     <td>
       <div class="expclass">
-      <%= this.type %>
+      <a href="#/report/<%= this.id %>"><%= this.type %> in <%= this.uri %></a>
       </div>
       <span class="message"><%= this.message %></span>
     </td>
