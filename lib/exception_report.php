@@ -22,6 +22,25 @@ class ExceptionReport implements ArrayAccess {
             throw new NotFound();
         }
         $this->data['error_info'] = unserialize($this->data['error_info']);
+        $pr = preg_quote(c()->getValue('report_format', 'app_root'), '#');
+
+        foreach($this->data['error_info']['callstack'] as &$csi){
+            if ($pr)
+                $csi['file'] = preg_replace("#^$pr/?#", '<R>/', $csi['file']);
+            if ($csi['class']){
+                $csi['call'] = sprintf('%s%s%s(%s)',
+                    $csi['class'],
+                    $csi['type'],
+                    $csi['function'],
+                    implode(', ', array_map(array($this, 'formatArgument'), $csi['args']))
+                );
+            }else{
+                $csi['call'] = sprintf('%s(%s)',
+                    $csi['function'],
+                    implode(', ', array_map(array($this, 'formatArgument'), $csi['args']))
+                );
+            }
+        }
     }
 
     function __get($v){
@@ -51,6 +70,12 @@ class ExceptionReport implements ArrayAccess {
 
     function offsetUnset ($offset){
          throw new NotImplementedException("ExceptionReport is read-only");
+    }
+
+    private function formatArgument($p){
+        if (!is_string($p) || strlen($p) < 20)
+            return $p;
+        return substr($p, 0, 8).'...'.substr($p, strlen($p)-8);
     }
 
 }
