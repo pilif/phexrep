@@ -28,6 +28,13 @@ class ExceptionReport implements ArrayAccess {
         return $this->data[$v];
     }
 
+    /* we'll never know why json_encode apparently can't work with
+       something that implements ArrayAccess */
+    function asArray(){
+        return $this->data;
+    }
+
+
     // ArrayAccess implementation methods
 
     function offsetExists ($offset){

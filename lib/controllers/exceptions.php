@@ -18,7 +18,8 @@ class ExceptionController extends BaseController{
 
     private function getException($exid){
         $ex = new ExceptionReport($exid);
-        return (array)$ex;
+
+        return $ex->asArray();
 
     }
 
