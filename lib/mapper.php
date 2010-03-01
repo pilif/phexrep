@@ -31,7 +31,7 @@ class RequestMapper {
         }catch(HttpException $h){
             $h->render();
         }catch(Exception $e){
-            $e = new InternalServerError();
+            $e = new InternalServerError($e);
             $e->render();
         }
     }

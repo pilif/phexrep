@@ -15,7 +15,8 @@ abstract class HttpException extends Exception {
         $data = json_encode(array(
             'error_code' => $this->status_code,
             'message' => $this->status_message,
-            'error_data' => $this->getBody()
+            'error_data' => $this->getBody(),
+            'callstack' => $this->getTrace()
         ));
         header('Content-Length: '.strlen($data));
         echo $data;
@@ -75,12 +76,15 @@ class BadRequest extends HttpException{
 }
 
 class InternalServerError extends HttpException{
+    private $wrapped = null;
 
-    function __construct(){
+    function __construct($wrap = null){
         parent::__construct(500, 'Internal Server Error');
+        $this->wrapped = $wrap;
     }
 
     function getBody(){
-        return array();
+        $w = ($this->wrapped) ? ((array)$this->wrapped) : null;
+        return array('original_exception' => $w);
     }
 }
