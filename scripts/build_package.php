@@ -35,7 +35,15 @@ if ($preconfig){
 <?php
 
 function rewrite(){
+    if(empty(\$_SERVER['PATH_INFO'])){
+        header(sprintf('Location: http://%s%s/',
+            \$_SERVER['HTTP_HOST'],
+            \$_SERVER["PHP_SELF"]
+        ));
+        exit;
+    }
     \$p = preg_replace('#^/+#', '', \$_SERVER['PATH_INFO']);
+    if (\$p == '') \$p = 'index.html';
     return '/public/'.\$p;
 }
 
