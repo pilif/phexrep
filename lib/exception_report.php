@@ -24,6 +24,15 @@ class ExceptionReport implements ArrayAccess {
         $this->data['error_info'] = unserialize($this->data['error_info']);
         $pr = preg_quote(c()->getValue('report_format', 'app_root'), '#');
 
+        $this->data['error_info']['callstack'] = array_merge(
+            array(array(
+                'line' => $this->data['error_info']['line'],
+                'file' => $this->data['error_info']['file'],
+                'function' => 'throw',
+                'args' => array()
+            )),
+            $this->data['error_info']['callstack']
+        );
         foreach($this->data['error_info']['callstack'] as &$csi){
             if ($pr){
                 $csi['base_file'] = preg_replace("#^$pr/?#", '', $csi['file']);
