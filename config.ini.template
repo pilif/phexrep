@@ -1,6 +1,7 @@
 [database]
 user=<user>
 dbname=<database>
+password=<password>
 
 [access_control]
 username=admin

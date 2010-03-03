@@ -22,7 +22,7 @@ foreach($rd as $file) {
     $p = substr($file, strlen($base_dir));
     if (preg_match('#\.+$#', $file->getFilename()))
         continue;
-    if (preg_match('#^/(\.[a-z]|scripts|config.ini)#', $p))
+    if (preg_match('#^/(\.[a-z]|scripts|config.ini|util)#', $p))
         continue;
     $files[$p] = (string)$file;
 }
