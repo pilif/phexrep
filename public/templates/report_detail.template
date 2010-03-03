@@ -64,7 +64,7 @@
         $('#callstack > tbody > tr > td > a.preview').click(function(evt){
             var pp = $(this).attr('data-preview-path');
             if (pp){
-                $.get('/api.php/'+pp, function(res){
+                $.get('api.php/'+pp, function(res){
                     $('#code-preview')
                         .find("pre")
                             .text(res)

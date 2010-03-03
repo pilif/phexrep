@@ -21,6 +21,10 @@ if (file_exists(LIB_DIR.'/_autoload.php')){
 
 $GLOBALS['cfg'] = new Configuration();
 
-foreach(glob(LIB_DIR.'/controllers/*.php') as $c){
-    include($c);
+$dir = dir(LIB_DIR.'/controllers/');
+while(false !== ($entry = $dir->read())){
+    $fp = LIB_DIR.'/controllers/'.$entry;
+    if (is_file($fp) && preg_match('#\.php$#', $fp)){
+        include($fp);
+    }
 }
