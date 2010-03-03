@@ -1,2 +1,3 @@
 config.ini
 /lib/_autoload.php
+*.phar
