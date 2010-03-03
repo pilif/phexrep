@@ -47,6 +47,23 @@ function rewrite(){
     return '/public/'.\$p;
 }
 
+function authenticate(\$ac){
+    if (!\$ac) return;
+
+    \$u = \$ac['username'];
+    \$p = \$ac['password'];
+    if (\$_SERVER['PHP_AUTH_USER'] !== \$u  ||
+        crypt(\$_SERVER['PHP_AUTH_PW'], \$p) != \$p){
+        header('WWW-Authenticate: Basic realm="phexrep"');
+        header('HTTP/1.0 401 Unauthorized');
+        exit;
+    }
+}
+
+\$conf = parse_ini_file('phar://'.__FILE__.'/config.ini', true);
+authenticate(\$conf['access_control']);
+
+
 Phar::interceptFileFuncs();
 Phar::webPhar("$alias", "/index.html", null, array(), 'rewrite');
 echo "phexrep should be run through a webbrowser\n";
