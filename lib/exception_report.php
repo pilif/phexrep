@@ -55,6 +55,12 @@ class ExceptionReport implements ArrayAccess {
                 );
             }
         }
+        if ($fs = c()->getValue('report_format', 'interesting_custom_fields')){
+            $fs = explode(',', $fs);
+            foreach($fs as $f){
+                $this->data[$f] = $this->data['error_info'][$f];
+            }
+        }
     }
 
     function __get($v){
