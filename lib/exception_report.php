@@ -21,8 +21,10 @@ class ExceptionReport implements ArrayAccess {
         if (!$this->data){
             throw new NotFound();
         }
-        $this->data['error_info'] = unserialize($this->data['error_info']);
+        $this->data['error_info'] = unserialize(base64_decode($this->data['error_info']));
         $pr = preg_quote(c()->getValue('report_format', 'app_root'), '#');
+        if (!$this->data['error_info']['callstack'])
+            $this->data['error_info']['callstack']  = array();
 
         $this->data['error_info']['callstack'] = array_merge(
             array(array(
