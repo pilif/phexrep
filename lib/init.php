@@ -1,8 +1,10 @@
 <?php
-define(APP_ROOT, __DIR__.'/..');
-define(LIB_DIR, APP_ROOT.'/lib/');
+define('APP_ROOT', __DIR__.'/..');
+define('LIB_DIR', APP_ROOT.'/lib/');
 
 ini_set('include_path', LIB_DIR);
+
+error_reporting(E_ALL ^ (E_NOTICE | E_USER_NOTICE | E_DEPRECATED));
 
 if (file_exists(LIB_DIR.'/_autoload.php')){
     include_once(LIB_DIR.'/_autoload.php');
