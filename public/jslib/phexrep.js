@@ -6,9 +6,10 @@ Exrep.Configuration = {
 
 (function($) {
     Exrep.app = $.sammy((function(){
-        var renderReportList = function(context){
+        var renderReportList = function(context, ps){
+            ps = ps || 10;
             $.ajax({
-                url: "./api.php/exceptions",
+                url: "./api.php/exceptions?pagesize="+encodeURI(ps),
                 dataType: "json",
                 success: function(reports){
                     context.partial('templates/report_list.template', {reports: reports});
@@ -22,12 +23,14 @@ Exrep.Configuration = {
             this.use(Sammy.Template);
 
             this.get('#/', function(context){
-                renderReportList(context);
+                var pagesize = context.params.ps || 10;
+                renderReportList(context, pagesize);
             });
 
             this.get('#/report/:id', function(context){
+                var pagesize = context.params.ps || 10;
                 if ($('#exceptions > h1').length === 0)
-                    renderReportList(context);
+                    renderReportList(context, pagesize);
                 $.ajax({
                     url: "./api.php/exceptions/"+ encodeURI(this.params['id']),
                     dataType: "json",
