@@ -1,5 +1,5 @@
 <?php
-
+setlocale(LC_ALL, 'de_CH.iso-8859-1');
 # do some magic to patch up PATH_INFO to work correctly be
 $p = preg_quote('/'.basename(__FILE__));
 $_SERVER['PATH_INFO'] = preg_replace("#^$p#", "", $_SERVER['PATH_INFO']);
