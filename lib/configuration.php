@@ -9,11 +9,11 @@ class Configuration {
         $this->read_config($fn);
     }
 
-    function getValue($section, $name){
+    function getValue($section, $name=null){
         if ( ($section === 'report_format') && ($name === 'app_root')){
             return $this->getDocumentRoot();
         }else{
-            return $this->_config[$section][$name];
+            return $name ? $this->_config[$section][$name] : $this->_config[$section];
         }
     }
 
