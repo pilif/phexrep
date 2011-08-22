@@ -34,52 +34,38 @@ class DatabaseConnection{
     private $_link;
 
     function __construct(){
-        $cs = sprintf('dbname=%s user=%s password=%s',
-            c()->getValue('database', 'dbname'),
-            c()->getValue('database', 'user'),
-            c()->getValue('database', 'password')
-        );
-        $this->_link = pg_connect($cs);
+        $settings = array();
+        foreach(c()->getValue('database') as $k => $v)
+            $settings[] = sprintf('%s=%s', $k, $v);
+
+        $cs = 'pgsql:'.implode(';', $settings);
+        $this->_link = new PDO($cs);
         if (!$this->_link)
             throw new DatabaseException("Cannot connect to database server");
-        if (pg_set_client_encoding('utf-8') != 0)
-            throw new DatabaseException("Cannot set client encoding");
+
+        $this->_link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->_link->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $this->_link->exec("set client_encoding to 'latin1'");
     }
 
+    /**
+     * @return PDOStatement
+     */
     public function saveQuery($query){
-        $r = @pg_query($this->_link, $query);
-        if (!$r){
-            throw new DatabaseQueryException($query, $this->_link);
-        }
+        $r = $this->_link->prepare($query);
+        $r->execute();
         return $r;
     }
 
     public function querySingle($query){
         $r = $this->saveQuery($query);
-        return pg_fetch_assoc($r);
+        return $r->fetch();
     }
 
     public function &queryArray($query){
         $r = $this->saveQuery($query);
-        $arr = array();
-        while($ra = pg_fetch_assoc($r)){
-            $arr[] = $ra;
-        }
-        return $arr;
+        return $r->fetchAll();
     }
-
-    public function putLine($line){
-        if (!pg_put_line($this->_link, $line)){
-            throw new DatabaseStreamException($line, $this->_link);
-        }
-    }
-
-    public function closeStream(){
-        if (!pg_end_copy($this->_link)){
-            throw new DatabaseStreamException("[end of stream]", $this->_link);
-        }
-    }
-
 }
 
 class Database{
