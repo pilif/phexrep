@@ -7,7 +7,7 @@ Exrep.Configuration = {
 (function($) {
     Exrep.app = $.sammy((function(){
         var renderReportList = function(context, ps){
-            ps = ps || 10;
+            ps = ps || 10;
             $.ajax({
                 url: "./api.php/exceptions?pagesize="+encodeURI(ps),
                 dataType: "json",
@@ -16,7 +16,7 @@ Exrep.Configuration = {
                     $('#showpage').hide();
                 }
             })
-        }
+        };
 
         return function(){
             this.element_selector = '#main';
